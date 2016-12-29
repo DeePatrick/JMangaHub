@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNet.Identity
+
+@model IEnumerable<JMangaHub.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Who I Follow</h1>
+<ul>
+    @foreach (var creator  in Model)
+    {
+        
+       <li><img class="img-circle" width="70" height="70" src="data:image;base64,@System.Convert.ToBase64String(creator.ProfilePicture)" /></li>
+               
+        <li>@creator.Name</li>
+
+
+    }
+</ul>
+

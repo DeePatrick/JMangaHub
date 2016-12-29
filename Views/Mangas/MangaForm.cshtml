@@ -1,0 +1,45 @@
+﻿@model JMangaHub.Models.ViewModels.MangaFormViewModel
+
+
+<h2>@Model.Heading</h2>
+@using (Html.BeginForm(@Model.Action, "Mangas"))
+{
+    <p class="alert alert-info">All fields are <strong>required</strong>.</p>
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.MangaName)
+        @Html.TextBoxFor(m => m.MangaName, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.MangaName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Vendor)
+        @Html.TextBoxFor(m => m.Vendor, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Vendor)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DueDate)
+        @Html.TextBoxFor(m => m.DueDate, new { @class = "form-control", placeholder = "eg 1 Jan 2015" })
+        @Html.ValidationMessageFor(m => m.DueDate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.DueTime)
+        @Html.TextBoxFor(m => m.DueTime, new { @class = "form-control", placeholder = "eg 1 Jan 2015" })
+        @Html.ValidationMessageFor(m => m.DueTime)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Genre)
+        @Html.DropDownListFor(m => m.Genre, new SelectList(Model.Genres, "Id", "Name"), "Select One", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Genre)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Summary, "Summary")
+        @Html.TextAreaFor(m => m.Summary, new { @class = "form-control", rows = 5, placeholder = "What's the Manga all about." })
+        @Html.ValidationMessageFor(m => m.Summary)
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

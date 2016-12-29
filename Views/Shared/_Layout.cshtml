@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="https://fonts.googleapis.com/css?family=Mallanna" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <meta name="description" content="The description of my page" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("MangaHub", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Add a Manga", "Create", "Mangas")</li>
+                    <li>@Html.ActionLink("Discussion", "Chat", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+    <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/js"></script>
+    @Scripts.Render("~/bundles/lib")
+    @RenderSection("scripts", required: false)
+    <script type="text/x-template" id="notifications-template">
+        <ul class="notifications">
+            <%
+            _.each(notifications, function(notification){
+            if (notification.type == 1) { %>
+            <li><span class="highlight"><%= notification.manga.creator.name %></span> has canceled the manga at <%= notification.manga.vendor %> at <%= moment(notification.manga.dateTime).format("D MMM HH:mm") %>.</li>
+            <% }
+
+            else if (notification.type == 2) {
+            var changes = [],
+            originalValues = [],
+            newValues = [];
+
+            if (notification.originalvendor != notification.manga.vendor) {
+            changes.push('vendor');
+            originalValues.push(notification.originalvendor);
+            newValues.push(notification.manga.vendor);
+            }
+
+            if (notification.originalDateTime != notification.manga.dateTime) {
+            changes.push('date/time');
+            originalValues.push(moment(notification.originalDateTime).format("D MMM HH:mm"));
+            newValues.push(moment(notification.manga.dateTime).format("D MMM HH:mm"));
+            }
+
+            %>
+            <li><span class="highlight"><%= notification.manga.creator.name %></span> has changed the <%= changes.join(' and ') %> of the manga from <%= originalValues.join('/') %> to <%= newValues.join('/') %></li>
+            <%
+            }
+            })
+            %>
+        </ul>
+    </script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("/api/notifications", function (notifications) {
+                if (notifications.length == 0)
+                    return;
+
+                $(".js-notifications-count")
+                    .text(notifications.length)
+                    .removeClass("hide")
+                    .addClass("animated bounceInDown");
+
+                $(".notifications").popover({
+                    html: true,
+                    title: "Notifications",
+                    content: function () {
+                        var compiled = _.template($("#notifications-template").html());
+                        return compiled({ notifications: notifications });
+                    },
+                    placement: "bottom",
+                    template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+
+                }).on("shown.bs.popover", function() {
+                    $.post("/api/notifications/markAsRead")
+                        .done(function () {
+                            $(".js-notifications-count")
+                                .text("")
+                                .addClass("hide");
+                        });
+                });
+
+            });
+        });
+    </script>
+</body>
+</html>

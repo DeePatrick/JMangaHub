@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNet.Identity
+
+@model IEnumerable<JMangaHub.Models.Manga>
+@{
+    ViewBag.Title = "Mine";
+}
+   
+
+<ul class="mangas">
+    @foreach (var manga in Model)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @manga.DueDateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @manga.DueDateTime.ToString("d ")
+                </div>
+
+
+            </div>
+            <div class="details">
+                <span class="artist">@manga.MangaName</span>
+                @manga.Vendor
+                <span class="genre">@manga.Genre.Name</span>
+                <div class="action">
+                    <a href="@Url.Action("Edit", "Mangas", new { id = manga.Id})">Edit |</a>
+                    <a href="@Url.Action("Delete", "Mangas", new { id   = manga.Id})">Delete </a>
+                </div>
+            </div>
+        </li>
+                        }
+</ul>
+
+
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+

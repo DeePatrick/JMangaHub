@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNet.Identity
+
+@model JMangaHub.Models.Manga
+
+@{
+    ViewBag.Title = "About Creator";
+}
+
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        About Creator
+    </div>  
+        <div class="date">
+            <div class="month">
+                @Model.DueDateTime.ToString("MMM ")
+            </div>
+            <div class="day">
+                @Model.DueDateTime.ToString("d ")
+            </div>
+        </div>
+        <div class="details">
+            <span class="artist">
+                @Model.MangaName
+            </span>
+            @Model.Creator.Name
+            <span class="genre">
+                @Model.Genre.Name
+            </span>
+        </div>
+        <div>
+        @Model.Summary
+        </div>
+        <div>
+        @Model.Vendor
+        </div>
+
+</div>
+<div class="panel-footer">
+    <a class='btn btn-primary' href="@Url.Action("Index", "Mangas")" style='width:80px'>
+        <i class='glyphicon glyphicon-chevron-left'></i> Back
+    </a>
+</div>
+
+
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>

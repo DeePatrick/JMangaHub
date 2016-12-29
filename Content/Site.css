@@ -1,0 +1,270 @@
+﻿body {
+    padding-top: 90px;
+    padding-bottom: 20px;
+    background-image: url('../Images/Background/5236554-my_hero_academia-izuku-katsuki-shouto.jpg');
+    font-weight:600;
+}
+
+    /* Set padding to keep content from hitting the edges */
+    .body-content; {
+    padding-left: 15px;
+    padding-right: 15px;
+
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+span.field-validation-error {
+    color: red;
+    font-weight: bold;
+}
+
+/* Bootstrap Overrides */
+.navbar-inverse {
+    background-image:linear-gradient(#00ffdd,#04a1af);
+    border-color: #00ffdd;
+    border:1px;
+    
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
+.navbar > .container .navbar-brand {
+    margin-left: 15px;
+}
+.navbar-inverse .navbar-brand {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color:rgba(39, 183, 205, 0.55);
+}
+
+.dropdown-menu {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    background-color:aliceblue
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret {
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+}
+
+.navbar-brand {
+    font-weight: 500;    
+}
+
+body {
+    font-size: 16px;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: 'Mallanna', sans-serif;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    font-size: 17px;
+    height: 44px;
+    -ms-border-radius: 18px;
+    border-radius: 18px;
+}
+
+
+.btn {
+    -ms-border-radius: 15px;
+    border-radius: 15px;
+    padding: 4px 8px;
+    margin-bottom: 0; 
+    cursor: pointer;
+    cursor: hand;
+}
+
+/*Page-level styles*/
+
+.mangas {
+    list-style: none; 
+}
+
+.mangas > li {
+    position: relative;
+    margin-bottom: 30px;
+}
+.mangas > li .date {
+    background: #333;
+    color: white;
+    text-align: center;
+    width: 60px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;    
+}
+
+.mangas > li .date .month {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 6px;
+    padding: 2px 6px;  
+}
+
+.mangas > li .date .day {
+    background: #f7f7f7;
+    color: #333;
+    font-size: 20px;
+    padding: 2px 12px; 
+     
+}
+ 
+.navbar-toggle {
+    border-color: #00ffdd;
+}   
+.mangas > li .details {
+    position: absolute;
+    top: 0;
+    left: 70px; 
+    font-size: 16px;
+  
+}
+.mangas > li .details .artist {
+    font-weight: bold;
+    color: #333;
+    display: block; 
+    //background-image: linear-gradient(#607d8b, black);
+    cursor: pointer;
+    font-size: 16px;
+
+    padding-left:.5em;
+    padding-right:.5em;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius:10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius:10px;
+}
+.mangas > li .details .genre {
+    font-size: 12px;
+    font-weight:600;
+    color:firebrick
+}
+.mangas > li .details .vendor {
+    font-size: 14px; 
+    color:firebrick
+}
+.mangas > li .action {
+    font-size: 14px;
+    display: none;
+
+}
+.mangas > li:hover .action {
+    display: block;
+    cursor: pointer;
+}
+
+.mangas> li.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #04a1af;
+}
+
+.review 
+{    
+    padding: 2px;
+    border-bottom: 2px solid black; 
+    padding-bottom: 10px;   
+}
+
+.review h4
+{
+    color: Maroon;
+    padding: 5px;
+    background: #cccc99
+}
+
+.review p 
+{
+    font-size: .8em;    
+}
+
+.glyphicon glyphicon-search{
+    position: absolute;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+}
+
+/*#searchGigs {
+  width: 400px;
+}*/
+#searchGigs input {
+  max-width: none;
+}
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+    text-align: center;
+    background-color: #eeeeee;
+    background-image:linear-gradient(#00ffdd,#04a1af);
+    border: 1px solid #cccccc;
+    border-radius: 15px;
+}
+a{
+    font-weight:700;
+    color: #333;
+}
+.photo{
+      position: absolute;
+      margin-left: 250px;
+      margin-bottom: 0px;
+}
+.img-responsive{
+    border-radius: 15px;
+}
+
+.btn-success {
+  color: #ffffff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  background-image:linear-gradient(#00ffdd,#04a1af);
+}
+
+
+
+
+
+

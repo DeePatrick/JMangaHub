@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNet.Identity;
+
+
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <span class="badge">Manga</span>
+        Comments
+    </li>    
+</ul>
+<span class="placeholder">Start the discussion…</span>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/js"></script>
+    <script src="~/Scripts/messager.js"></script>
+}
+
+
+
+
+
+<div class="glyphicon glyphicon-user">
+    <span class="avatar">
+        <input class="well well" type="text" id="message" />
+        <input type="button" id="sendmessage" value="SEND" class="btn btn-success" />
+        <input type="hidden" id="displayname" />
+    </span>
+    
+</div>
+<ul id="discussion"></ul>
+<ul id="date"></ul>
+
+
+
+
+        
+

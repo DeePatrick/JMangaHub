@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNet.Identity
+@model JMangaHub.ViewModels.MangaViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<h1>@Model.Heading</h1>
+@using (Html.BeginForm("Search", "Mangas"))
+{
+    <div class="form-group">
+        <div id="searchGigs" class="input-group">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search by Artist, Genre or Location..." })
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+        </div>
+    </div>
+}
+
+
+<ul class="mangas">
+    @foreach (var manga in Model.AvailableMangas)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @manga.DueDateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @manga.DueDateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details" data-toggle="tooltip" title="Click here for Info">
+                <span class="artist">
+                    @Html.ActionLink(@manga.MangaName, "Details", new { id = manga.Id })
+                    @if (Model.ShowActions)
+                    {
+                        <button class="btn btn-link  btn-sm  js-toggle-follow" data-user-id="@manga.CreatorId"><i class="glyphicon glyphicon-thumbs-up"></i> Like?</button>
+                    }
+                </span>
+                @manga.Creator.Name
+                <span class="genre">
+                    @manga.Genre.Name
+                </span>
+                @if (Model.ShowActions)
+                {
+                    <button data-manga-id="@manga.Id" class="btn btn-link  btn-sm   pull-right js-toggle-attendance"><i class="glyphicon glyphicon-bitcoin"></i>Subscribe ?</button>
+                }
+
+            </div>
+            <div >
+                <div >
+                    
+                </div>
+                </div>
+            <img class="img-circle" width="70" height="70" src="data:image;base64,@System.Convert.ToBase64String(manga.Creator.ProfilePicture)" />
+        </li>
+    }
+</ul>
+@Scripts.Render("~/bundles/lib")
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/lib")
+@Scripts.Render("~/bundles/modernizr")
+@Styles.Render("~/Content/css")
+<script>
+    $(document).ready(function () {
+        $(".js-toggle-attendance").click(function (e) {
+            var button = $(e.target);
+            $.post("api/attendances", { mangaId: button.attr("data-manga-id") })
+                .done(function () {
+                    button
+                        .remove("btn-link")
+                        .addClass("btn-info")
+                        .text("Subscribed");
+                })
+                .fail(function () {
+                    alert("Something failed");
+                });
+
+        });
+    });
+</script>

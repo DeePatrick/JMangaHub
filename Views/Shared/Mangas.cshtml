@@ -1,0 +1,55 @@
+﻿@model IEnumerable<JMangaHub.Models.Manga>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<ul class="mangas">
+    @foreach (var manga in Model)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @manga.DueDateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @manga.DueDateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="artist">
+                    @Html.ActionLink(@manga.MangaName, "Index", "Home")
+                </span>
+                @manga.Creator.Name
+                <span class="genre">
+                    @manga.Genre.Name
+                </span>
+                <button class="btn btn-link  btn-sm  js-toggle-follow" data-user-id="@manga.CreatorId"><i class="glyphicon glyphicon-thumbs-up"></i> Like?</button>
+                <button data-manga-id="@manga.Id" class="btn btn-link  btn-sm   pull-right js-toggle-attendance"><i class="glyphicon glyphicon-bitcoin"></i>Subscribe ?</button>
+            </div>
+        </li>
+    }
+</ul>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+
+
+<script>
+    $(document).ready(function () {
+        $(".js-toggle-attendance").click(function (e) {
+            var button = $(e.target);
+            $.post("api/attendance", { mangaId: button.attr("data-manga-id") })
+                .done(function(){
+                    button
+                        .remove("btn-default")
+                        .addClass("btn-info")
+                        .text("Subscribed");
+                })
+                .fail(function () {
+                    alert("Something failed");
+                });
+
+            });
+    });
+</script>

@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNet.Identity
+
+@model JMangaHub.ViewModels.MangaDetailsViewModel
+
+@{
+    ViewBag.Title = "About the Creator";
+}
+
+<div class='panel panel-success'>
+    <div class='panel-heading'>
+
+        <div class="media">
+            <div class="panel-profile-img">
+                <img class="img-circle" width="70" height="70" src="data:image;base64,@System.Convert.ToBase64String(@Model.Manga.Creator.ProfilePicture)" />
+            </div>
+            <h2>
+                @Model.Manga.Creator.Name
+                @if (User.Identity.IsAuthenticated)
+            {
+                if (Model.IsFollowing)
+                {
+                        <button class="btn btn-info js-toggle-follow" data-user-id="@Model.Manga.CreatorId">Following</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-default js-toggle-follow" data-user-id="@Model.Manga.CreatorId">Follow</button>
+                    }
+                }
+            </h2>
+            <p>
+                @Model.Manga.MangaName is Available at @Model.Manga.Vendor from @Model.Manga.DueDateTime.ToString("d MMM") at @Model.Manga.DueDateTime.ToString("HH:mm")
+            </p>
+            <p>
+                @Model.Manga.MangaName is about @Model.Manga.Summary
+            </p>
+
+            <p>
+                It is classed primarily as @Model.Manga.Genre.Name
+            </p>
+
+            @if (User.Identity.IsAuthenticated && Model.IsAttending)
+            {
+                <p>You purchased to this Issue. </p>
+            }
+
+        </div>
+    <div class="panel-footer">
+        <a class='btn btn-success' href="@Url.Action("Index", "Home")" style='width:80px'>
+            <i class='glyphicon glyphicon-chevron-left'></i> Back
+        </a>
+    </div>
+</div>
+
+
+<script>
+        $(document).ready(function () {
+
+        });
+</script>
+
+
