@@ -263,6 +263,9 @@ a{
   background-image:linear-gradient(#00ffdd,#04a1af);
 }
 
+li{
+    display:list-item;
+}
 
 
 

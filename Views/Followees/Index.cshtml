@@ -11,9 +11,9 @@
     @foreach (var creator  in Model)
     {
         
-       <li><img class="img-circle" width="70" height="70" src="data:image;base64,@System.Convert.ToBase64String(creator.ProfilePicture)" /></li>
+       <img class="img-circle" width="70" height="70" src="data:image;base64,@System.Convert.ToBase64String(creator.ProfilePicture)" /><Br/>
                
-        <li>@creator.Name</li>
+        @creator.Name
 
 
     }

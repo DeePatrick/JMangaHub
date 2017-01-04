@@ -46,7 +46,7 @@
             <%
             _.each(notifications, function(notification){
             if (notification.type == 1) { %>
-            <li><span class="highlight"><%= notification.manga.creator.name %></span> has canceled the manga at <%= notification.manga.vendor %> at <%= moment(notification.manga.dateTime).format("D MMM HH:mm") %>.</li>
+            <li><span class="highlight"><%= notification.manga.creator.name %></span> has cancelled the manga at <%= notification.manga.vendor %> at <%= moment(notification.manga.duedateTime).format("D MMM HH:mm") %>.</li>
             <% }
 
             else if (notification.type == 2) {
@@ -60,7 +60,7 @@
             newValues.push(notification.manga.vendor);
             }
 
-            if (notification.originalDateTime != notification.manga.dateTime) {
+            if (notification.originalDateTime != notification.manga.duedateTime) {
             changes.push('date/time');
             originalValues.push(moment(notification.originalDateTime).format("D MMM HH:mm"));
             newValues.push(moment(notification.manga.dateTime).format("D MMM HH:mm"));
@@ -76,7 +76,7 @@
     </script>
     <script>
         $(document).ready(function () {
-            $.getJSON("/api/notifications", function (notifications) {
+            $.get("/api/notifications", function (notifications) {
                 if (notifications.length == 0)
                     return;
 

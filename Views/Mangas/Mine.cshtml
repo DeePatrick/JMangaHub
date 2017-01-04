@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Mine";
 }
-   
+
 
 <ul class="mangas">
     @foreach (var manga in Model)
@@ -24,14 +24,60 @@
                 <span class="artist">@manga.MangaName</span>
                 @manga.Vendor
                 <span class="genre">@manga.Genre.Name</span>
-                <div class="action">
-                    <a href="@Url.Action("Edit", "Mangas", new { id = manga.Id})">Edit |</a>
-                    <a href="@Url.Action("Delete", "Mangas", new { id   = manga.Id})">Delete </a>
+                <div class="actions">
+                    <a href="@Url.Action("Edit", "Mangas", new { id = manga.Id })">
+                        Edit
+                    </a> |
+                    <a href="#" class="js-delete-manga" data-manga-id="@manga.Id">
+                        Delete
+                    </a>
                 </div>
             </div>
         </li>
-                        }
+    }
 </ul>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-delete-manga").click(function (e) {
+                var link = $(e.target);
+
+                bootbox.dialog({
+                    message: "Are you sure you want to delete this manga?",
+                    title: "Confirm",
+                    buttons: {
+                        no: {
+                            label: "No",
+                            className: "btn-default",
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        yes: {
+                            label: "Yes",
+                            className: "btn-danger",
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/mangas/" + link.attr("data-manga-id"),
+                                    method: "DELETE"
+                                })
+                                .done(function () {
+                                    link.parents("li").fadeOut(function () {
+                                        $(this).remove();
+                                    });
+                                })
+                                .fail(function () {
+                                    alert("Something failed!");
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
 
 
 

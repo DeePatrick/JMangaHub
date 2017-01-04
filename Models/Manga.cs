@@ -55,7 +55,7 @@ namespace JMangaHub.Models
 
         public void Modify(DateTime dateTime, string vendor , byte genre)
         {
-            var notification = Notification.GigUpdated(this, DueDateTime, Vendor);
+            var notification = Notification.MangaUpdated(this, DueDateTime, Vendor);
 
             Vendor = vendor;
             DueDateTime = dateTime;

@@ -1,50 +1,57 @@
 ﻿@using Microsoft.AspNet.Identity
 
-@model JMangaHub.Models.Manga
+@model JMangaHub.ViewModels.MangaDetailsViewModel
 
 @{
     ViewBag.Title = "About Creator";
 }
 
+@model JMangaHub.ViewModels.MangaDetailsViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <div class='panel panel-primary'>
     <div class='panel-heading'>
         About Creator
-    </div>  
-        <div class="date">
-            <div class="month">
-                @Model.DueDateTime.ToString("MMM ")
-            </div>
-            <div class="day">
-                @Model.DueDateTime.ToString("d ")
-            </div>
         </div>
-        <div class="details">
-            <span class="artist">
-                @Model.MangaName
-            </span>
-            @Model.Creator.Name
-            <span class="genre">
-                @Model.Genre.Name
-            </span>
+        <h2>
+            @Model.Manga.Creator.Name
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (Model.IsFollowing)
+                {
+                    <button class="btn btn-info js-toggle-follow" data-user-id="@Model.Manga.CreatorId">Following</button>
+                }
+                else
+                {
+                    <button class="btn btn-default js-toggle-follow" data-user-id="@Model.Manga.CreatorId">Follow</button>
+                }
+            }
+        </h2>
+        <p>
+            On sale at @Model.Manga.Vendor on @Model.Manga.DueDateTime.ToString("d MMM") at @Model.Manga.DueDateTime.ToString("HH:mm")
+        </p>
+
+        @if (User.Identity.IsAuthenticated && Model.IsAttending)
+        {
+            <p>You are buying to this. </p>
+        }
+
+        <div class="panel-footer">
+            <a class='btn btn-primary' href="@Url.Action("Index", "Mangas")" style='width:80px'>
+                <i class='glyphicon glyphicon-chevron-left'></i> Back
+            </a>
         </div>
-        <div>
-        @Model.Summary
-        </div>
-        <div>
-        @Model.Vendor
-        </div>
-
-</div>
-<div class="panel-footer">
-    <a class='btn btn-primary' href="@Url.Action("Index", "Mangas")" style='width:80px'>
-        <i class='glyphicon glyphicon-chevron-left'></i> Back
-    </a>
-</div>
 
 
 
-    <script>
-        $(document).ready(function () {
-
-        });
-    </script>
+        @section scripts
+{
+            <script>
+                $(document).ready(function () {
+                    MangaDetailsController.init();
+                });
+            </script>
+        }

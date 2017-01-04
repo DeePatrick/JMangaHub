@@ -39,7 +39,7 @@
     $(document).ready(function () {
         $(".js-toggle-attendance").click(function (e) {
             var button = $(e.target);
-            $.post("api/attendance", { mangaId: button.attr("data-manga-id") })
+            $.post("api/attendances", { mangaId: button.attr("data-manga-id") })
                 .done(function(){
                     button
                         .remove("btn-default")

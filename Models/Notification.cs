@@ -28,12 +28,12 @@ namespace JMangaHub.Models
             DateTime = DateTime.Now;
         }
 
-        public static Notification GigCreated(Manga manga )
+        public static Notification MangaCreated(Manga manga )
         {
             return new Notification(NotificationType.MangaCreated, manga);
         }
 
-        public static Notification GigUpdated(Manga newManga , DateTime originalDateTime, string originalVenue)
+        public static Notification MangaUpdated(Manga newManga , DateTime originalDateTime, string originalVenue)
         {
             var notification = new Notification(NotificationType.MangaUpdated, newManga );
             notification.OriginalDateTime = originalDateTime;
